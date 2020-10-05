@@ -1,3 +1,4 @@
 <?php
-    $dia = date("d")
-    echo ($dia)
+    $dia = date('d');
+    $mes = date('m');
+    echo ($mes);
