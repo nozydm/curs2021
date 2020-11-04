@@ -4,13 +4,8 @@ $errorpasswd="";
 $error=false;
 include "libreria.php";
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nouusari = $_REQUEST["nouusuari"];
-    $noucontrasena = $_REQUEST["noucontrasena"];
-    try{
-        $conn = new mysqli('localhost', 'acustodio', 'acustodio', 'acustodio_');
-    }catch(mysqli_sql_exception $e) {
-        $e->errorMessage();
-    }
+    $nouusari = $_POST["nouusuari"];
+    $noucontrasena = $_POST["noucontrasena"];
     #correo electronico correcto
     if(is_valid_email($nouusari)== false) {
         $errornom="El usuario debe ser un correo electronico";
@@ -22,7 +17,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error=true;
     }
     if($error == false) {
-        header("location: sesions.php");
+        try{
+            $conn = new mysqli('localhost', 'acustodio', 'acustodio', 'acustodio_');
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "INSERT INTO angeltio (usuario, pass) VALUES (?,?)";
+            $result=$conn->prepare($sql);
+            $result->bind_param('ss', $nouusari, $noucontrasena);
+            $result->execute();
+            $conn->close();
+            header('location: sesions.php')
+         }catch(mysqli_sql_exception $e) {
+             $e->errorMessage();
+         }
     }
 }
 
