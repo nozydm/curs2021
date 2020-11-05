@@ -82,9 +82,12 @@
 
         <title>Exemple de sesions</title>
     </head>
-
+    <style>
+        #panel {background-color: grey; border: 5px; border-style: solid;
+        padding: 10px;}
+    </style>
     <body>
-        <div style="margin: 30px 10%;">
+        <div id="panel" style="margin: 30px 10%;">
 
             <h3>Validacion</h3>
 
@@ -101,6 +104,9 @@
             </form>
             <form action="register.php">
             <button>Reg</button>
+            </form>
+            <form action="admin.php">
+                <button> ADMIN </button>
             </form>
 
         </div>

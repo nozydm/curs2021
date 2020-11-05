@@ -27,8 +27,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result->bind_param('ss', $nouusari, $noucontrasena);
             $result->execute();
             $conn->close();
-            header('location: sesions.php')
-         }catch(mysqli_sql_exception $e) {
+            header('location: sesions.php');
+            }catch(mysqli_sql_exception $e) {
              $e->errorMessage();
          }
     }
@@ -43,9 +43,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <title>Exemple de sesions</title>
 </head>
-
+<style>
+        #panel {background-color: grey; border: 5px; border-style: solid;
+        padding: 10px;}
+</style>
 <body>
-    <div style="margin: 30px 10%;">
+    <div id="panel" style="margin: 30px 10%;">
 
         <h3>Validacion</h3>
 
@@ -55,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <label>Contrasena</label> <input type="text" size="30" maxlength="100" name="noucontrasena" value="<?php if($_SERVER['REQUEST_METHOD'] == 'POST') echo $_REQUEST["noucontrasena"];?>" required /><span class="errorpasswd"><?=$errorpasswd;?></span><br /><br />
 
-            <button id="mysubmit" type="submit">Login</button><br /><br />
+            <button id="mysubmit" type="submit">CREAR</button><br /><br />
 
         </form>
 

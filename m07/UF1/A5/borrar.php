@@ -5,24 +5,19 @@
     $error=false;
     session_start();
     
-    if (!isset($_SESSION["usuario"]) and !isset($_SESSION["contrasena"])){
-        header("location:sesions.php");
-    }else{
-        echo ("Hola: ".$_SESSION["usuario"]);
-    }
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         include "libreria.php";
         $usuari = $_SESSION["usuario"];
-        $uptcontrasena = $_POST["uptcontrasena"];
+        $borrarusuario = $_POST["borrarusuario"];
         #correo electronico correcto
-        if(is_valid_email($usuari)== false) {
+        if(is_valid_email($borrarusuario)== false) {
             $errornom="El usuario debe ser un correo electronico";
             $error=true;
         }
         #contraseña correcta
-        if(preg_match ("/^[a-zA-Z0-9]+$/", $uptcontrasena)== false) {
+        if(preg_match ("/^[a-zA-Z0-9]+$/", $borrarusuario)== false) {
             $errorpasswd="La contraseña deben ser numeros o letras";
             $error=true;
         }
@@ -31,7 +26,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "UPDATE angeltio SET pass='$uptcontrasena' WHERE usuario='$usuari'";
+            $sql = "DELETE FROM angeltio WHERE usuario='$borrarusuario';";
             mysqli_query($conn, $sql);
             header('location: sesions.php');
          }catch(mysqli_sql_exception $e) {
@@ -55,16 +50,11 @@
 </style>
 <body>
 <div id="panel">
-    <form action="sesions2.php" method="post" id="myform" name="myform">
+    <form action="borrar.php" method="post" id="myform" name="myform">
 
-    <label>UPDATE Contrasena</label> <input type="text" size="30" maxlength="100" name="uptcontrasena" value="<?php if($_SERVER['REQUEST_METHOD'] == 'POST') echo $_REQUEST["uptcontrasena"];?>" required /><span class="errorpasswd"><?=$errorpasswd;?></span><br /><br />
+    <label>Usuario que quieres borrar</label> <input type="text" size="30" maxlength="100" name="borrarusuario" value="<?php if($_SERVER['REQUEST_METHOD'] == 'POST') echo $_REQUEST["borrarusuario"];?>" required /><span class="errorpasswd"><?=$errorpasswd;?></span><br /><br />
 
-    <button id="mysubmit" type="submit">Update</button><br /><br />
-
-    </form>
-        <form action="sesions3.php" method="post" id="myform" name="myform">
-        <button id="mysubmit" type="submit">Logout</button><br /><br />
-        </form>
+    <button id="mysubmit" type="submit">borrar</button><br /><br />
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@
     $errornom="";
     $errorpasswd="";
     $error=false;
+    $admin = "angel@gmail.com";
     //error_reporting(E_ALL & ~E_NOTICE);
 
     $correctuser = 'angel@gmail.com';
@@ -44,7 +45,7 @@
             die("error con la consulta".$conn->error);
         }
         #si la validacion de contrasena y usuario es correcta:
-        if ($resultado == 1){
+        else if ($resultado == 1){
             
             $_SESSION["usuario"]=$_REQUEST["usuari"];
             $_SESSION["contrasena"]=$_REQUEST["contrasena"];
