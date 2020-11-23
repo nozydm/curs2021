@@ -4,9 +4,6 @@ include("funcions.php");
 session_start();
 $error=FALSE;
 $errormsg="";
-$_SESSION["lista_prodcutes"] = $lista_productes;
-$_SESSION["producte_id"] = $producte_id;
-
 
 
 if(isset($_REQUEST["okp"])){
@@ -173,30 +170,7 @@ política....<br>
 
 
 
-
 ?>
-<div id="productos">
-                <?php
-                  //PRINTEAR PRODUCTOS
-                  $conn = connectDB('localhost', 'acustodio', 'acustodio', 'acustodio_a6');
-                  $sql = "select * from productes";
-                  
-                  if (!$resultado=$conn->query($sql)) {
-                    die("error ejecutando la consulta:".$conn->error);
-                  }else{
-                    while($lista_productes = $resultado->fetch_assoc()){
-
-                      echo $lista_productes['nom'];
-                      echo "-";
-                      echo $lista_productes['descripcio'];
-                      echo "-";
-                      echo $lista_productes['preu'];
-                      echo "<br>";
-                      echo "</br>";
-                    }
-                  }
-                ?>
-      </div>
 </body>
 </html>
 
