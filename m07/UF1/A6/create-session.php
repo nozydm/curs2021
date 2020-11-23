@@ -2,6 +2,7 @@
 session_start();
 include 'funcions.php';
 require 'stripe/init.php';
+$preutotal = $_SESSION['preciototal'];
 
 
 
@@ -17,10 +18,10 @@ $checkout_session = \Stripe\Checkout\Session::create([
   'payment_method_types' => ['card'],
   'line_items' => [[
     'price_data' => [
-      'currency' => 'usd',
-      'unit_amount' => 2000,
+      'currency' => 'eur',
+      'unit_amount' => $preutotal*100,
       'product_data' => [
-        'name' => 'Stubborn Attachments',
+        'name' =>   $_SESSION["login"],
         'images' => ["https://i.imgur.com/EHyR2nP.png"],
       ],
     ],

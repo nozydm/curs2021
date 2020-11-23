@@ -1,5 +1,4 @@
 <?php
-
 include("contrologin.php");
 include("funcions.php");
 

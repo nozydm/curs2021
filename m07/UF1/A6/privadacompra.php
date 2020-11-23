@@ -1,15 +1,7 @@
 <?php
 session_start();
 include("funcions.php");
-$producte_id = test_input($_REQUEST["id"]);
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-  //COMPRA DE PRODUCTOS
-  $conn = connectDB('localhost', 'acustodio', 'acustodio', 'acustodio_a6');
-  $sql = "select * from productes where id=$producte_id";
-  if (!$conn->query($sql)) {
-    die("error ejecutando la consulta:".$conn->error);
-  }
-}
+echo $_SESSION['preciototal'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       <?php
         //PRINTEAR PRODUCTOS
         $conn = connectDB('localhost', 'acustodio', 'acustodio', 'acustodio_a6');
-        $sql = "select * from productes";
-        
+        $sql = "select * from productes";        
         if (!$resultado=$conn->query($sql)) {
           die("error ejecutando la consulta:".$conn->error);
         }else{
@@ -37,18 +28,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo $lista_productes['descripcio'];
             echo "-";
             echo $lista_productes['preu'];
+            echo "<a href='carrito_compra.php?idproducte=".$lista_productes["id"]."&preuproducte=".$lista_productes["preu"]."'>[Comprar]</a><br><br><hr>";
             echo "<br>";
             echo "</br>";
           }
         }
       ?>
     </div>
-      <form action="privadacompra.php" method="post">
-      id del producte: <input type="text" name="id"></input>
-      <button type="submit" name="boton">Añadir</button>
-      </form>
-    <div id="carrito">
-    <a href="carrito.php">VER CARRITO</a>
-    </div>
+    <form action="carrito.php">
+    <button>carrito</burron>
+    </form>
 </body>
 </html>

@@ -9,13 +9,38 @@
   <body>
     <section>
       <div class="product">
-        <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        />
+        <?php
+        session_start();
+        include 'funcions.php';
+        foreach($_SESSION['arrayproductos'] as $valor){
+          $conn = connectDB('localhost', 'acustodio', 'acustodio', 'acustodio_a6');
+          $sql = "select * from productes where id='$valor'";
+          if (!$resultado=$conn->query($sql)) {
+            die("error ejecutando la consulta:".$conn->error);
+          }else{
+            while($lista_productes = $resultado->fetch_assoc()){
+              
+              echo $lista_productes['id'];
+              echo "-";
+              echo $lista_productes['nom'];
+              echo "-";
+              echo $lista_productes['descripcio'];
+              echo "-";
+              echo $lista_productes['preu'];
+              echo "<br>";
+              echo "</br>";
+            }
+          }
+        }
+        ?>
         <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
+          <h3>COMPRA DE <?php
+          
+          echo  $_SESSION["login"];
+          ?></h3>
+          <h5><?php
+          echo $_SESSION['preciototal'];
+           ?></h5>
         </div>
       </div>
       <button id="checkout-button">Checkout</button>
